@@ -1,0 +1,30 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Logs de Acesso</h1>
+<table>
+    <thead>
+        <tr>
+            <th>IP</th>
+            <th>Data/Hora</th>
+            <th>Localização</th>
+            <th>ISP</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.ip_address }}</td>
+            <td>{{ log.access_time }}</td>
+            <td>
+                {% if log.city %}{{ log.city }}, {% endif %}
+                {% if log.region %}{{ log.region }}, {% endif %}
+                {% if log.country %}{{ log.country }}{% endif %}
+                {% if log.latitude %}({{ log.latitude|floatformat:4 }}, {{ log.longitude|floatformat:4 }}){% endif %}
+            </td>
+            <td>{{ log.isp }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
